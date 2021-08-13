@@ -1,0 +1,42 @@
+{% include 'partials/header.html'%}
+
+  <div class="container card-header">
+ 
+   <h2>Add Todo</h2>
+      <form action="{% url 'add'%}" method="POST">
+      {% csrf_token %}
+        <div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Title</label>
+  <input type="text" name="title" class="form-control" id="exampleFormControlInput1" placeholder="Title">
+</div>
+     <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Todo</label>
+          <textarea name="text" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+     </div>
+        <button type="submit" value="Submit" class="btn btn-success">Add Todo</button>
+     </form>
+   
+   <br><br>
+    <hr>
+<div class="row mt-4">
+<div class="col">
+<ul class="list-group">
+{% for todo in todos %}
+  <li class="list-group-item">  Title:  <a href="/todos/details/{{todo.id}}">{{todo.title}}</a></li>
+  <li class="list-group-item">  Todo: {{todo.text|slice:":55"}} 
+   <div class="float-end">
+   <a href="/todos/details/{{todo.id}}"><button class="btn btn-primary btn-sm">View</button></a>  
+   <fom action="delete/{{todo.id}}" method="POST"> 
+    {% csrf_token %} 
+     <a onclick="return confirm('Are you really sure?')"href="/todos/delete/{{todo.id}}">
+      <button class="btn btn-danger btn-sm">Delete</button></a>
+     </form>
+     </div>
+     </li>
+    {% endfor %}
+    </ul><br><br>
+    </div>
+   </div>
+ </div>
+
+{% include 'partials/footer.html'%}

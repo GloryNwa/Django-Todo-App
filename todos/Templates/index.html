@@ -1,0 +1,14 @@
+
+{% include 'partials/header.html'%}
+<ul>
+  {% for todo in todos %}
+  <li><a href="/todos/details/{{todo.id}}">{{todo.title}}</a>
+  </li>
+<p>{{todo.text|slice:":55"}}</p>
+
+<a href="/todos/details/{{todo.id}}"><button class="btn btn-success">Read More</button></a><br><br>
+  {% endfor %}
+
+</ul>
+{% include 'partials/footer.html'%}
+
